@@ -21,9 +21,20 @@ while True:
     thresh_frame = cv2.threshold(compare_frame, 30, 255, cv2.THRESH_BINARY)[1]
     thresh_frame = cv2.dilate(thresh_frame, None, iterations=2)
 
+    (cnts, _) = cv2.findContours(thresh_frame.copy(),
+                                 cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+    for contour in cnts:
+        if cv2.contourArea(contour) < 1000:
+            continue
+
+        (x, y, w, h) = cv2.boundingRect(contour)
+        cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 3)
+
     cv2.imshow('thresh', thresh_frame)
     cv2.imshow('Gray', gray)
     cv2.imshow('compare', compare_frame)
+    cv2.imshow("colour Frame", frame)
 
     key = cv2.waitKey(1)
     if key == ord('q'):
