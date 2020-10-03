@@ -18,7 +18,10 @@ while True:
         continue
 
     compare_frame = cv2.absdiff(first_frame, gray)
+    thresh_frame = cv2.threshold(compare_frame, 30, 255, cv2.THRESH_BINARY)[1]
+    thresh_frame = cv2.dilate(thresh_frame, None, iterations=2)
 
+    cv2.imshow('thresh', thresh_frame)
     cv2.imshow('Gray', gray)
     cv2.imshow('compare', compare_frame)
 
