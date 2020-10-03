@@ -3,7 +3,7 @@
 
 
 # Technologies
- The project is created using:
+    The project is created using:
     * Python 3.8
     * OpenCV
     * Pandas
